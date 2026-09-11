@@ -21,7 +21,7 @@ this lab focuses on understanding how attackers recover plaintext passwords from
 
 before cracking, each hash was analyzed to determine its type (e.g., MD5, SHA-1, sha512crypt) based on format, length, and structure. Correct identification is critical, supplying the wrong '--format' flag to John will cause cracking attempts to fail silently or produce false negatives.
 
-2\. Dictionary Attacks<br/><br/>
+2\. Dictionary Attacks<br/>
 
 using the rockyou.txt wordlist, i ran standard dictionary attacks against sample hashes: <br/>
 
@@ -29,21 +29,21 @@ using the rockyou.txt wordlist, i ran standard dictionary attacks against sample
 
 this method is effective against weak or commonly reused passwords and demonstrated why breach-derived wordlists remain dangerous years later.
 
-3\. Single Crack Mode <br/><br/>
+3\. Single Crack Mode <br/>
 
 single crack mode uses contextual information (e.g., username) to generate target password guesses, useful when a password is likely derived from account metadata:
 
 &emsp;john --single --format=<hash-type> hash.txt
 
-4\. Cracking Linux Shadow Hashes <br/><br/>
+4\. Cracking Linux Shadow Hashes <br/>
 
 practiced extracting and combining relevant fields from /etc/passwd and /etc/shadow into a crackable format, then applying john with the appropriate format (e.g., sha512crypt) to recover weak local account passwords.
 
-5\. Cracking Protected Archives <br/><br/>
+5\. Cracking Protected Archives <br/>
 
 used zip2john and rar2john to extract crackable hash representations from password protected zip/rar files, then applied john to recover the archive password demonstrating that "encryption" on consumer archive tools is often only as strong as the password behind it.
 
-6\. Custom Rules <br/><br/>
+6\. Custom Rules <br/>
 
 explored john's rule-based manglng (defined in john.conf) to generate password variants (e.g., appending numbers or capitalizing letters) increasing crack success rate against human password patterns.
 
