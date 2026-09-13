@@ -17,8 +17,9 @@ this lab focuses on understanding how attackers recover plaintext passwords from
 - <b>Linux CLI (Kali)<b/>
 
 <h2>Methodology</h2>
-1. Hash Identification<br/><br/>
-
+1. Hash Identification
+<br/>
+<br/>
 before cracking, each hash was analyzed to determine its type (e.g., MD5, SHA-1, sha512crypt) based on format, length, and structure. Correct identification is critical, supplying the wrong '--format' flag to John will cause cracking attempts to fail silently or produce false negatives.
 
 2\. Dictionary Attacks<br/>
@@ -64,3 +65,36 @@ explored john's rule-based manglng (defined in john.conf) to generate password v
 - detection opportunity: while this lab focused on offline cracking (generates no network or log signal), the same credential weaknesses are what enable online attacks like credential stuffing and password spraying (e.g., windows event id 4625, ssh auth failures).
 
 - recommendations: a siem correlation rule alerting on n failed logins across multiple accounts from a single source in a short window would help catch spraying attempts stemming from a breached password list.
+
+<h2>Dictionary Attack Walkthrough</h2>
+Scope the files/hashes to be cracked:<br/>
+<img src="https://imgur.com/yyMUKfC.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+<img src="https://imgur.com/m77UzHB.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- run the "cat" or concatenate command to print the contents of hash1.txt
+<br/>
+
+Identify the hash using "HashID" by Blackploit: <br/>
+<img src="https://imgur.com/RrA7DHd.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- run the python code using the command python hash-id.py and input the hash from hash1.txt
+- the output tells us that the possible hash could be "MD5".
+<br/>
+
+Find the correct MD5 format to use for John the Ripper: <br/>
+<img src="https://imgur.com/CwYZiBE.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- the output of cat hash1.txt showed us that the hash is a standard, unformatted, and unsalted MD5 hash. thus, it is raw.
+- we will use "Raw-MD5".
+<br/>
+
+Crack the Hash: <br/>
+<img src="https://imgur.com/COudWEW.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- run the command: john --format=[format] --wordlist=[path to wordlist] [path to file]
+- the cracked hash is displayed within the yellow box [redacted].
+
+<h2>Single Crack Mode Walkthrough</h2>
+
+
+
