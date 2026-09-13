@@ -22,7 +22,7 @@ this lab focuses on understanding how attackers recover plaintext passwords from
 <br/>
 before cracking, each hash was analyzed to determine its type (e.g., MD5, SHA-1, sha512crypt) based on format, length, and structure. Correct identification is critical, supplying the wrong '--format' flag to John will cause cracking attempts to fail silently or produce false negatives.
 
-2\. Dictionary Attacks<br/>
+<br/>2\. Dictionary Attacks<br/>
 
 using the rockyou.txt wordlist, i ran standard dictionary attacks against sample hashes: <br/>
 
@@ -134,6 +134,30 @@ Crack the Hash with the username: <br/>
 
 - run the command: john --single=[format] [path to file]
 - the cracked hash is displayed within the yellow box.
+<br/>
+
+<h2>Cracking Password Protected Compressed Zip Files</h2>
+Scope the files/hashes to be cracked:<br/>
+<img src="https://imgur.com/ccM40oC.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+Convert the secure ZIP file into a .txt file: <br/>
+<img src="https://imgur.com/xwSuNbb.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- we will use the command "zip2john secure.zip > secure_hash.txt"
+<br/>
+
+Crack the hash: <br/>
+<img src="https://imgur.com/PYPytvn.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- zip file password is the yellow text.
+<br/>
+
+Exploit the ZIP file: <br/>
+<img src="https://imgur.com/ENbtKg8.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+<img src="https://imgur.com/NArxnoM.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- we can now exploit the vulnerable file because we have its password.
+- the contents of the secure file is displayed in the white box [redacted].
 <br/>
 
 
