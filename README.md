@@ -95,6 +95,33 @@ Crack the Hash: <br/>
 - the cracked hash is displayed within the yellow box [redacted].
 
 <h2>Single Crack Mode Walkthrough</h2>
+Scope the files/hashes to be cracked:<br/>
+<img src="https://imgur.com/L1kN3FV.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+<img src="https://imgur.com/Q9z8clZ.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- we will be cracking the password of user "Joker".
+- run the "cat" or concatenate command to print the contents of hash07.txt
+<br/>
+
+Identify the hash using "HashID" by Blackploit: <br/>
+<img src="https://imgur.com/obW8sTB.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- run the python code using the command python hash-id.py and input the hash from hash07.txt
+- the output tells us the hash is Raw-MD5.
+<br/>
+
+Prepend the username "Joker" before the password hash in hash07.txt: <br/>
+<img src="https://imgur.com/ZvBrCJB.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- use the command "nano hash07.txt" to open the .txt file with the command line text editor in linux.
+<br/>
+
+Crack the Hash with the username: <br/>
+<img src="https://imgur.com/XgOIHkT.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+
+- run the command: john --single=[format] [path to file]
+- the cracked hash is displayed within the yellow box.
+
 
 
 
