@@ -154,7 +154,7 @@ Crack the hash: <br/>
 
 Exploit the ZIP file: <br/>
 <img src="https://imgur.com/ENbtKg8.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
-<img src="https://imgur.com/NArxnoM.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+<img src="https://imgur.com/v5UgyJW.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
 
 - we can now exploit the vulnerable file because we have its password.
 - the contents of the secure file is displayed in the white box [redacted].
