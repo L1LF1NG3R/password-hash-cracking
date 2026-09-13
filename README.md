@@ -36,17 +36,26 @@ single crack mode uses contextual information (e.g., username) to generate targe
 
 &emsp;john --single --format=<hash-type> hash.txt
 
-4\. Cracking Linux Shadow Hashes <br/>
-
-practiced extracting and combining relevant fields from /etc/passwd and /etc/shadow into a crackable format, then applying john with the appropriate format (e.g., sha512crypt) to recover weak local account passwords.
-
-5\. Cracking Protected Archives <br/>
+4\. Cracking Protected Archives <br/>
 
 used zip2john and rar2john to extract crackable hash representations from password protected zip/rar files, then applied john to recover the archive password demonstrating that "encryption" on consumer archive tools is often only as strong as the password behind it.
 
-6\. Custom Rules <br/>
+5\. Cracking Windows Authentication Hashes <br/>
 
-explored john's rule-based manglng (defined in john.conf) to generate password variants (e.g., appending numbers or capitalizing letters) increasing crack success rate against human password patterns.
+windows stores password hashes in NTLM format, which (unlike modern Linux sha512crypt hashes) is unsalted, making it significantly faster to crack at scale. after identifying the hash format, i applied john using the appropriate NTLM setting against a wordlist:
+
+&emsp;john --format=NT --wordlist=rockyou.txt hash.txt
+
+this highlights a key legacy weakness in NTLM: because there's no salt, identical password across different accounts produces identical hash values, meaning, a single successful crack or a precomputed hash table can compromise multiple accounts at once.
+
+6\. Cracking SSH Private Key Passwords <br/>
+
+SSH private keys are often protected with a passphrase rather than stored in plaintext. using ss2john, i converted a passphrase-protected private key into a crackable hash format, then ran john against it:
+
+&emsp;ssd2john id_rsa > id_rsa_hash.txt<br/>
+&emsp;john --wordlist=rockyou.txt id_rsa_hash.txt
+
+this demonstrates that even non-traditional "password" scenarios are subject to the same offline cracking risks if the passphrase is weak.
 
 <h2>Findings</h2>
 
@@ -56,6 +65,8 @@ explored john's rule-based manglng (defined in john.conf) to generate password v
 
 - archive and ssh key passwords, while often overlooked, are just as vulnerable to offline cracking as traditional account hashes if the underlying password is weak.
 
+- NTLM's lack of salting made windows-style hashes crack noticeable faster than salted formats, reinforcing why legacy authentication schemes remain a liability even in modern environments.
+
 <h2>Defensive Takeaways</h2>
 
 - hashing algorithm matters: md5/sha-1 are fast to crack at scale. modern systems should use slow, salted algorithms (bcrypt, scrypt, etc.) to resist offline attacks.
@@ -63,6 +74,8 @@ explored john's rule-based manglng (defined in john.conf) to generate password v
 - password policy: length and complexity requirements reduce dictionary attack success far more than periodic rotation policies do.
 
 - detection opportunity: while this lab focused on offline cracking (generates no network or log signal), the same credential weaknesses are what enable online attacks like credential stuffing and password spraying (e.g., windows event id 4625, ssh auth failures).
+
+- environments still relying on NTLM authentication (instead of kerberos) remain exposed to fast offline cracking and hash relay attachs; disabling NTLM where possible, or at minimum monitoring for NTLM authentication events, reduces this exposure.
 
 - recommendations: a siem correlation rule alerting on n failed logins across multiple accounts from a single source in a short window would help catch spraying attempts stemming from a breached password list.
 
@@ -121,6 +134,7 @@ Crack the Hash with the username: <br/>
 
 - run the command: john --single=[format] [path to file]
 - the cracked hash is displayed within the yellow box.
+<br/>
 
 
 
