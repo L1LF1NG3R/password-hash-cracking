@@ -133,7 +133,7 @@ Crack the Hash with the username: <br/>
 <img src="https://imgur.com/XgOIHkT.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
 
 - run the command: john --single=[format] [path to file]
-- the cracked hash is displayed within the yellow box.
+- the cracked hash is displayed within the yellow box [redacted].
 <br/>
 
 <h2>Cracking Password Protected Compressed Zip Files</h2>
@@ -147,9 +147,9 @@ Convert the secure ZIP file into a .txt file: <br/>
 <br/>
 
 Crack the hash: <br/>
-<img src="https://imgur.com/PYPytvn.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
+<img src="https://imgur.com/lkJblbc.png" height="80%" width="80%" alt="Hash Identification"/> <br/>
 
-- zip file password is the yellow text.
+- zip file password is the yellow text [redacted].
 <br/>
 
 Exploit the ZIP file: <br/>
